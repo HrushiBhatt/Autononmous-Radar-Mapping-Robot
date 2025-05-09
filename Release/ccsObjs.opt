@@ -1,0 +1,13 @@
+"./Main7.obj"
+"./Timer.obj"
+"./button.obj"
+"./lcd.obj"
+"./movement.obj"
+"./open_interface.obj"
+"./scan.obj"
+"./tm4c123gh6pm_startup_ccs.obj"
+"./uart.obj"
+"../libcybotScan.lib"
+"../libcybotUART.lib"
+"../tm4c123gh6pm.cmd"
+-llibc.a
