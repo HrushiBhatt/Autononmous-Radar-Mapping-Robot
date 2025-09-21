@@ -5,9 +5,10 @@
 ---
 
 ## 📎 Project Media
-For a closer look at the robot in action and its live radar output:
+See the robot in action and the live radar visualization:
 
-
+- [📄 View radar scan (Image/PDF)](https://drive.google.com/file/d/16xv_A377L0o5gDUbLVbmbky7p9fTFUoK/view?usp=drive_link)
+- [🎥 Watch demo video](https://drive.google.com/file/d/1QH72uYH43xJ-KvKbDiyjW5pgsUf5nxqJ/view?usp=drive_link)
 
 ---
 
