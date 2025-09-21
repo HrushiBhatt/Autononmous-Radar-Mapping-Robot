@@ -75,9 +75,3 @@ These media files show the robot performing a full sweep and the live radar inte
 - Systems Integration and Robotics
 
 ---
-
-## 👤 Author
-**Hrushi Bhatt**  
-Junior, B.S. Computer Engineering – Iowa State University  
-
----
