@@ -7,10 +7,10 @@ This README explains **how the robot operates and how the radar plot displays ob
 ---
 
 ## 🎯 Project Overview
-The Autonomous Radar-Mapping Robot combines **embedded hardware, C firmware, sensor fusion, and a Python-based visualization pipeline**.  
+The Autonomous Radar-Mapping Robot combines **embedded Systems (C), sensors, and a Python-based visualization program**.  
 Together these components create a self-scanning system that:
 
-- Detects objects using **infrared (IR)** and **PING ultrasonic** sensors, with **cliff** and **bump** sensors for ground and collision safety.
+- Detects objects using **infrared (IR)** and **PING (Sound) ultrasonic** sensors, with **cliff** and **bump** sensors for ground and collision safety.
 - Calculates each object’s **angular position, distance, and linear width**.
 - Streams those measurements over **TCP sockets** to a laptop running a live **radar-mapping GUI** built with **Tkinter and Matplotlib**.
 
@@ -23,8 +23,8 @@ The result is an accurate 180° environmental map rendered in real time.
 ### 1️⃣ Sensor Array & Motion
 - **Infrared (IR) Sensor** – Measures short-range distances precisely by converting reflected infrared light into voltage (processed via the microcontroller’s ADC).  
 - **PING Ultrasonic Sensor** – Emits ultrasonic pulses and measures echo time to confirm and extend distance readings.  
-- **Cliff Sensors** – Detect sudden floor drops to prevent falls.  
-- **Bump Sensors** – Trigger immediate stop on unexpected contact.
+- **Cliff Sensors** – Detect sudden floor changes (demonstrated by black square in demo) to prevent falls.  
+- **Bump Sensors** – Trigger immediate stop on unexpected contact with objects.
 
 A servo motor **rotates the sensor assembly through a 180° sweep**, pausing at fixed angular increments. At each step, the firmware synchronously queries the sensors, ensuring precise distance–angle pairing.
 
@@ -33,11 +33,6 @@ A servo motor **rotates the sensor assembly through a 180° sweep**, pausing at 
 ### 2️⃣ Embedded Data Processing
 - **Angle & Distance Calculation** – Every reading is timestamped and tagged with its servo angle. IR voltages and ultrasonic echo times are converted into accurate distances (cm) using calibration formulas.
 - **Object Width Estimation** – The firmware monitors continuous detections across adjacent angles to compute an object’s **linear width**, factoring in the robot’s geometry.
-- **Packet Formation** – Each detected object is encoded as:
-
-and streamed via Wi-Fi TCP to the host computer.
-
-This on-board computation reduces noise and bandwidth, sending only refined, high-value data.
 
 ---
 
@@ -57,7 +52,7 @@ This creates a **live, 180° radar map** where distance from the robot, object s
 ---
 
 ## 🧠 Key Technical Features
-- **Embedded C Firmware** – Controls servo motion, reads sensors, converts ADC values, and streams filtered data.
+- **C-Based Algorithms** – Controls servo motion, reads sensors, converts ADC values, and streams filtered data.
 - **Sensor Fusion** – Combines IR precision and ultrasonic range for robust distance detection.
 - **Real-Time Networking** – Uses TCP sockets for continuous, low-latency communication.
 - **Dynamic Data Visualization** – Leverages Matplotlib polar plotting for instantaneous updates.
@@ -76,7 +71,7 @@ These media files show the robot performing a full sweep and the live radar inte
 - Embedded Systems Programming (C, ADC, servo control)
 - Sensor Fusion & Object Detection
 - Real-Time Networking and Data Streaming
-- Python GUI & Scientific Visualization
+- Python GUI & Visualization
 - Systems Integration and Robotics
 
 ---
