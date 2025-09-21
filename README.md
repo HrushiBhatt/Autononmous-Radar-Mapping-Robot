@@ -7,8 +7,7 @@
 ## 📎 Project Media
 For a closer look at the robot in action and its live radar output:
 
-- [View full radar scan (PDF)](https://drive.google.com/file/d/1TPPskg4r-oUXWgeg2_9LvXb_GC-wiGCU/view?usp=drive_link)
-- [Download and watch the demo video (MP4)](https://drive.google.com/file/d/16xv_A377L0o5gDUbLVbmbky7p9fTFUoK/view?usp=drive_link)
+
 
 ---
 
