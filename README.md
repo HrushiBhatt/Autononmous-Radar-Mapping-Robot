@@ -7,8 +7,6 @@
 ## 📸 Demo
 ![Live radar scan](./IMG_6266.jpg)
 
-> If the image doesn’t show: confirm the file name/case is `IMG_6266.jpg` and it lives in the **same folder** as this README (or update the path).
-
 ---
 
 ## ✨ What it does
