@@ -5,7 +5,8 @@
 ---
 
 ## 📸 Demo
-![Live radar scan](./IMG_6266.jpg)
+![View radar scan](https://drive.google.com/file/d/16xv_A377L0o5gDUbLVbmbky7p9fTFUoK/view?usp=drive_link)
+![Demo Video of Robot](https://drive.google.com/file/d/1TPPskg4r-oUXWgeg2_9LvXb_GC-wiGCU/view?usp=drive_link)
 
 ---
 
