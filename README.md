@@ -25,12 +25,3 @@
 - **GUI (Python):** Tkinter + Matplotlib (polar) plots objects at true angles/distances and refreshes in real time.
 
 ---
-
-## 🚀 Quick start
-**GUI (Python)**
-```bash
-# from repo root
-cd gui
-python -m venv .venv && source .venv/bin/activate    # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python radar_gui.py
