@@ -1,48 +1,51 @@
-# 🤖 Autonomous Radar Mapping Robot 
+# 🤖 Autonomous Radar-Mapping Robot
 
-> **Real-time object detection & room mapping** powered by **embedded systems + Python visualization**.  
-> Built with C (CyBot firmware), Python (Tkinter + Matplotlib GUI), and Wi-Fi sockets.
-
----
-
-## 🚀 Project Overview
-This robot scans its surroundings with infrared (IR) and ultrasonic sensors,  
-detects objects, and plots a **live 360° radar map** on a custom Python GUI.
-
-Key Features:
-- 🛰️ **Autonomous Radar Mapping** – 360° object scanning and distance calculation
-- 🎯 **Target Detection** – Identifies the largest object (≥17 cm) as a final target
-- ⚡ **Real-time Visualization** – Interactive Tkinter/Matplotlib radar interface
-- 🧠 **Smart Pathfinding** – Navigates toward smallest-width openings while avoiding obstacles
-- 🌐 **Wireless Control** – TCP socket connection to the CyBot at `192.168.1.1:288`
+> An embedded-systems robot that scans its environment, detects objects with **infrared and ultrasonic sensors**, and renders a **real-time radar map** on a custom Python GUI.
 
 ---
 
-## 🏗️ Tech Stack
-
-| Layer            | Tools / Languages |
-|------------------|--------------------|
-| **Firmware**     | C for sensor control, UART, and motor logic |
-| **Hardware**     | CyBot, IR & PING sensors, servo motor |
-| **UI / Control** | Python, Tkinter GUI, Matplotlib (polar plots), keyboard module |
-| **Networking**   | Wi-Fi TCP socket for bidirectional commands & data streaming |
+## 🛰️ Overview
+This project demonstrates a full embedded + software stack:
+- **C firmware** running on a CyBot microcontroller gathers distance and angle data from IR and PING (ultrasonic) sensors.
+- Data streams live over **TCP sockets** to a **Python GUI** built with Tkinter and Matplotlib.
+- The GUI displays a **dynamic 180° radar plot** of detected objects and highlights the **largest target**.
 
 ---
 
-## ⚙️ How It Works
-1. **Scan** – Robot sweeps IR & PING sensors through 180–360°  
-2. **Measure** – Calculates object width using angle and distance data  
-3. **Transmit** – Sends formatted packets `!theta!r!size` over TCP  
-4. **Visualize** – Python GUI converts packets into a live radar map  
-5. **Navigate** – Algorithm drives toward safe paths or final target
+## ⚙️ Tech Stack
+
+| Layer | Technologies | Role |
+|-------|-------------|------|
+| **Embedded Firmware** | C, ADC drivers, sensor fusion | Controls IR & ultrasonic sensors, calculates object width and distance |
+| **Communication** | TCP sockets | Sends sensor data (`!theta!r!size`) to the PC in real time |
+| **Desktop Application** | Python, Tkinter, Matplotlib | Plots objects on a polar radar map and provides live control interface |
+| **Hardware** | CyBot robot, IR and PING sensors | Scans surroundings and navigates autonomously |
 
 ---
 
-## 🖥️ Running the Project
+## 📸 Live Radar Screenshot
+Below is an actual scan captured from the running system:
 
-### 1️⃣ Firmware
-- Flash the CyBot with the embedded C code (IR + PING scanning and UART transmission)
+![R2D2 Radar System](IMG_6266.jpg)
 
-### 2️⃣ Python Radar UI
-```bash
-python radar_ui.py
+This image shows multiple detected objects plotted at their true angles and distances.  
+Objects are dynamically updated as the robot scans.
+
+---
+
+## 🎥 Demo Video (Optional)
+Add your recorded demo for recruiters and collaborators:
+
+> 👉 [Download/Watch Demo](IMG_0206.MOV)
+
+*(The link will work when the `.MOV` file is committed to the repository.)*
+
+---
+
+## 🏗️ How It Works
+1. **Sensor Sweep** – The robot rotates a servo-mounted sensor array to collect distance readings across a 180° arc.  
+2. **Real-Time Processing** – Embedded C code filters raw ADC readings, computes object width, and formats packets.  
+3. **Live Visualization** – A Python Tkinter/Matplotlib GUI plots each object on a radar grid and highlights the largest target.  
+4. **Autonomous Navigation** – The system can steer toward or avoid objects based on the mapped environment.
+
+---
