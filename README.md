@@ -1,77 +1,149 @@
-# 🤖 Autonomous Radar-Mapping Robot
+# Autonomous Radar-Mapping Robot
 
-> A fully integrated embedded-systems and software project where a mobile robot **scans its surroundings**, senses obstacles with multiple sensors, and sends real-time data to a **live radar visualization**.  
+An embedded robotics project that scans its surroundings, detects obstacles and hazards, and sends live sensor data to a Python radar visualization.
 
-This README explains **how the robot operates and how the radar plot displays object distance, width, and size** as the robot scans its environment.
+The system combines **embedded C, sensor integration, robot motion control, TCP communication, and real-time visualization**.
 
----
+## Demo
 
-## 🎯 Project Overview
-The Autonomous Radar-Mapping Robot combines **embedded Systems (C), sensors, and a Python-based visualization program**.  
-Together these components create a self-scanning system that:
+- [Watch the robot demo](https://drive.google.com/file/d/17zTY26zI-6VLDzKnHN7GtRfwhL1wV5gx/view?usp=drive_link)
+- [View a captured radar scan](https://drive.google.com/file/d/16xv_A377L0o5gDUbLVbmbky7p9fTFUoK/view?usp=drive_link)
 
-- Detects objects using **infrared (IR)** and **PING (Sound) ultrasonic** sensors, with **cliff** and **bump** sensors for ground and collision safety.
-- Calculates each object’s **angular position, distance, and linear width**.
-- Streams those measurements over **TCP sockets** to a laptop running a live **radar-mapping GUI** built with **Tkinter and Matplotlib**.
+## Core Features
 
-The result is an accurate 180° environmental map rendered in real time.
+- **180° environment scanning**
+- **IR and ultrasonic object detection**
+- **Object distance and width estimation**
+- **Cliff and bump hazard detection**
+- **Autonomous and manual robot movement**
+- **TCP communication between the robot and Python client**
+- **Live radar visualization using Matplotlib**
 
----
+## Tech Stack
 
-## ⚙️ How the Robot Scans and Detects
+**Embedded:** C, TM4C123 microcontroller  
+**Robot Platform:** iRobot Create  
+**Sensors:** IR, PING ultrasonic, cliff sensors, bump sensors  
+**Communication:** UART, TCP sockets  
+**Visualization:** Python, Matplotlib, NumPy  
+**Development:** Code Composer Studio
 
-### 1️⃣ Sensor Array & Motion
-- **Infrared (IR) Sensor** – Measures short-range distances precisely by converting reflected infrared light into voltage (processed via the microcontroller’s ADC).  
-- **PING Ultrasonic Sensor** – Emits ultrasonic pulses and measures echo time to confirm and extend distance readings.  
-- **Cliff Sensors** – Detect sudden floor changes (demonstrated by black square in demo) to prevent falls.  
-- **Bump Sensors** – Trigger immediate stop on unexpected contact with objects.
+## How It Works
 
-A servo motor **rotates the sensor assembly through a 180° sweep**, pausing at fixed angular increments. At each step, the firmware synchronously queries the sensors, ensuring precise distance–angle pairing.
+### 1. Environment Scanning
 
----
+The robot rotates its sensor assembly across a **180° field of view** and collects sensor readings at multiple angles.
 
-### 2️⃣ Embedded Data Processing
-- **Angle & Distance Calculation** – Every reading is timestamped and tagged with its servo angle. IR voltages and ultrasonic echo times are converted into accurate distances (cm) using calibration formulas.
-- **Object Width Estimation** – The firmware monitors continuous detections across adjacent angles to compute an object’s **linear width**, factoring in the robot’s geometry.
+IR and ultrasonic sensors are used to detect nearby objects and estimate their distance.
 
----
+### 2. Object Detection
 
-## 📡 Real-Time Radar Visualization
+Adjacent sensor readings are grouped into detected objects.
 
-### 1️⃣ Data Reception & Parsing
-- A **Python Tkinter/Matplotlib application** listens on a TCP port.
-- Incoming packets are parsed to extract **angle (θ)**, **distance (r)**, and **width**.
+The firmware calculates:
 
-### 2️⃣ Polar Plot Mapping
-- **Positioning:** Each object is plotted at its corresponding polar coordinate (θ, r).  
-- **Size Rendering:** The object’s calculated **width** determines the arc length drawn on the radar.  
-- **Visual Emphasis:** Larger objects appear as **thicker or wider arcs**, immediately conveying their scale relative to the robot.
+- Start and end angle
+- Object midpoint
+- Distance
+- Estimated object width
 
-This creates a **live, 180° radar map** where distance from the robot, object size, and position are intuitively visible.
+This information is used to build a simplified map of the robot's surroundings.
 
----
+### 3. Hazard Detection
 
-## 🧠 Key Technical Features
-- **C-Based Algorithms** – Controls servo motion, reads sensors, converts ADC values, and streams filtered data.
-- **Sensor Fusion** – Combines IR precision and ultrasonic range for robust distance detection.
-- **Real-Time Networking** – Uses TCP sockets for continuous, low-latency communication.
-- **Dynamic Data Visualization** – Leverages Matplotlib polar plotting for instantaneous updates.
+Cliff and bump sensors detect obstacles, boundaries, and drop-offs.
 
----
+The robot can stop movement when unsafe conditions are detected.
 
-## 📸 Demonstration
-- [🎥 Watch the robot scan and map its environment](https://drive.google.com/file/d/17zTY26zI-6VLDzKnHN7GtRfwhL1wV5gx/view?usp=drive_link)
-- [📄 View a captured radar scan](https://drive.google.com/file/d/16xv_A377L0o5gDUbLVbmbky7p9fTFUoK/view?usp=drive_link)
+### 4. Robot Navigation
 
-These media files show the robot performing a full sweep and the live radar interface rendering detected objects in real time.
+The system supports:
 
----
+- Forward movement
+- Reverse movement
+- Incremental turning
+- 90° turns
+- Environment rescanning
 
-## 🧩 Skills Demonstrated
-- Embedded Systems Programming (C, ADC, servo control)
-- Sensor Fusion & Object Detection
-- Real-Time Networking and Data Streaming
-- Python GUI & Visualization
-- Systems Integration and Robotics
+Movement commands are processed by the embedded controller.
 
----
+### 5. Real-Time Visualization
+
+Sensor data is transmitted from the robot to a Python client over TCP.
+
+The Python application parses the scan data and updates a live polar radar display showing:
+
+- Object angle
+- Distance
+- Estimated size
+- Hazard locations
+
+## Controls
+
+| Command | Action |
+| --- | --- |
+| `W` | Move forward |
+| `S` | Move backward |
+| `A` | Turn left |
+| `D` | Turn right |
+| `1` | Short scan |
+| `2` | Full 180° scan |
+| `9` | Turn 90° left |
+| `0` | Turn 90° right |
+
+The Python client also supports keyboard input while receiving sensor data in a separate thread.
+
+## Running the Visualization
+
+### Requirements
+
+- Python 3
+- NumPy
+- Matplotlib
+- keyboard
+
+Install dependencies:
+
+```bash
+pip install numpy matplotlib keyboard
+```
+
+Update the robot connection information in the visualization script if needed:
+
+```python
+HOST = "192.168.1.1"
+PORT = 288
+```
+
+Run the visualization:
+
+```bash
+python front_scan.py
+```
+
+The robot firmware must be running and connected before starting the Python client.
+
+## Repository Structure
+
+```text
+Autonomous-Radar-Mapping-Robot/
+├── YesInterruptMove.c      # Main movement and command logic
+├── scan.c                  # Sensor scanning and object detection
+├── adc.c                   # IR sensor ADC support
+├── open_interface.c        # iRobot Create interface
+├── new_uart_interrupt.c    # UART communication
+├── front_scan.py           # Python radar visualization
+└── targetConfigs/          # TM4C123 configuration
+```
+
+## What This Project Demonstrates
+
+This project demonstrates embedded systems development across:
+
+- Sensor integration
+- Real-time data collection
+- Robot motion control
+- Object detection
+- TCP communication
+- Multithreaded Python applications
+- Real-time data visualization
